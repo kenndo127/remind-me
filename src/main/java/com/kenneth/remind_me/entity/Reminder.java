@@ -36,7 +36,7 @@ public class Reminder {
     @Future(message = "Must schedule at a future date")
     private LocalDateTime scheduledAt;
 
-    private Integer interval;
+    private Integer intervalDays;
 
     @FutureOrPresent(message = "Must end at a future date")
     private LocalDateTime endsAt;
