@@ -14,6 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "person")
@@ -26,7 +27,8 @@ public class Person {
     @NotBlank
     private String name;
 
-    private List<String> messages;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.REMOVE)
+    private List<Reminder> reminders;
 
     @CreationTimestamp
     @Column(updatable = false)
