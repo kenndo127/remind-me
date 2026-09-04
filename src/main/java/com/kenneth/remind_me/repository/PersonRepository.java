@@ -11,4 +11,7 @@ import java.util.UUID;
 public interface PersonRepository extends JpaRepository<Person, UUID>{
     @Override
     Optional<Person> findById(UUID uuid);
+
+    Optional<Person> findByName(String name);
+
 }

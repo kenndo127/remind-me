@@ -15,7 +15,16 @@ public class GlobalExceptionHandler {
     public ResponseWrapper<Void> handleResourceNotFoundException(ResourceNotFoundException ex){
         return ResponseWrapper.<Void>builder()
                 .data(null)
-                .response("Resource Not Found")
+                .response(ex.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(DuplicatePersonFoundException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseWrapper<Void> handleDuplicatePersonFoundException(DuplicatePersonFoundException ex){
+        return ResponseWrapper.<Void>builder()
+                .data(null)
+                .response(ex.getMessage())
                 .build();
     }
 }

@@ -11,6 +11,6 @@ public interface PersonService {
     ResponseWrapper<PersonResponseDto> createPerson(PersonRequestDto person);
     ResponseWrapper<PersonResponseDto> updatePerson(UUID id, PersonRequestDto person);
     ResponseWrapper<List<PersonResponseDto>> findAllPerson();
-    ResponseWrapper<PersonResponseDto> findPersonById();
+    ResponseWrapper<PersonResponseDto> findPersonById(UUID id);
     void deletePerson(UUID id);
 }
