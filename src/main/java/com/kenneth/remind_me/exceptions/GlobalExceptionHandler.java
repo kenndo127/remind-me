@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -31,11 +34,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseWrapper<Void> handleValidationErrorExceptions(MethodArgumentNotValidException ex){
-        return ResponseWrapper.<Void>builder()
-                .data(null)
-                .response(ex.getMessage())
+    public ResponseWrapper<Map<String, String>> handleValidationErrorExceptions(MethodArgumentNotValidException ex){
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors()
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+
+        return ResponseWrapper.<Map<String, String>>builder()
+                .data(errors)
+                .response("Validation Failed")
                 .build();
     }
-    //Todo: Finish the right application of this exception method.
 }
