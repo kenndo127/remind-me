@@ -12,6 +12,6 @@ public interface ReminderService {
     ResponseWrapper<ReminderResponseDto> createReminder(UUID personId, ReminderRequestDto reminderRequestDto);
     ResponseWrapper<ReminderResponseDto> updateReminder(UUID personId, ReminderRequestDto reminderRequestDto);
     ResponseWrapper<List<ReminderResponseDto>> findAllReminderByPerson(UUID personId);
-    ResponseWrapper<List<ReminderResponseDto>> findAllIdByDate(LocalDateTime date);
+    ResponseWrapper<ReminderResponseDto> findReminderById(UUID reminderId);
     void deleteReminder(UUID id);
 }

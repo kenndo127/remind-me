@@ -1,13 +1,15 @@
 package com.kenneth.remind_me.dto.response;
 
 import com.kenneth.remind_me.enums.TimeFrame;
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class ReminderResponseDto {
     private UUID id;
