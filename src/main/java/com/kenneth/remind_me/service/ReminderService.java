@@ -10,8 +10,8 @@ import java.util.UUID;
 
 public interface ReminderService {
     ResponseWrapper<ReminderResponseDto> createReminder(UUID personId, ReminderRequestDto reminderRequestDto);
-    ResponseWrapper<ReminderResponseDto> updateReminder(UUID personId, ReminderRequestDto reminderRequestDto);
+    ResponseWrapper<ReminderResponseDto> updateReminder(UUID reminderID, ReminderRequestDto reminderRequestDto);
     ResponseWrapper<List<ReminderResponseDto>> findAllReminderByPerson(UUID personId);
     ResponseWrapper<ReminderResponseDto> findReminderById(UUID reminderId);
-    void deleteReminder(UUID id);
+    void deleteReminder(UUID reminderId);
 }
