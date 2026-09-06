@@ -89,7 +89,7 @@ public class ReminderServiceImpl implements ReminderService {
 
     @Override
     public void deleteReminder(UUID reminderId) {
-        Reminder reminder = reminderRepository.findById(id)
+        Reminder reminder = reminderRepository.findById(reminderId)
                 .orElseThrow(() -> new ResourceNotFoundException("This Reminder does not exist!"));
 
         reminderRepository.delete(reminder);
