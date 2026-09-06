@@ -57,6 +57,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public ResponseWrapper<List<PersonResponseDto>> findAllPerson() {
         List<Person> allPersons = personRepository.findAll();
 
@@ -68,6 +69,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public ResponseWrapper<PersonResponseDto> findPersonById(UUID id) {
         Person person = personRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException("This Person does not exist"));
