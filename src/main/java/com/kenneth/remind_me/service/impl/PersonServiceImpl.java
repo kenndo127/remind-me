@@ -2,6 +2,7 @@ package com.kenneth.remind_me.service.impl;
 
 import com.kenneth.remind_me.dto.request.PersonRequestDto;
 import com.kenneth.remind_me.dto.response.PersonResponseDto;
+import com.kenneth.remind_me.dto.response.ReminderResponseDto;
 import com.kenneth.remind_me.dto.response.ResponseWrapper;
 import com.kenneth.remind_me.entity.Person;
 import com.kenneth.remind_me.exceptions.DuplicatePersonFoundException;
@@ -56,6 +57,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public ResponseWrapper<List<PersonResponseDto>> findAllPerson() {
         List<Person> allPersons = personRepository.findAll();
 
@@ -67,6 +69,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public ResponseWrapper<PersonResponseDto> findPersonById(UUID id) {
         Person person = personRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException("This Person does not exist"));
@@ -82,9 +85,27 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private PersonResponseDto buildPersonResponseDto(Person savedPerson){
+
+        List<ReminderResponseDto> reminders = savedPerson.getReminders() == null ?
+                List.of()
+                : savedPerson.getReminders().stream()
+                  .map(reminder -> ReminderResponseDto.builder()
+                                   .id(reminder.getId())
+                                   .message(reminder.getMessage())
+                                   .timing(reminder.getTiming())
+                                   .scheduledAt(reminder.getScheduledAt())
+                                   .intervalDays(reminder.getIntervalDays())
+                                   .endsAt(reminder.getEndsAt())
+                                   .lastSentAt(reminder.getLastSentAt())
+                                   .createdAt(reminder.getCreatedAt())
+                                   .updatedAt(reminder.getUpdatedAt())
+                                   .build())
+                  .toList();
+
         return PersonResponseDto.builder()
                 .id(savedPerson.getId())
                 .name(savedPerson.getName())
+                .reminders(reminders)
                 .createdAt(savedPerson.getCreatedAt())
                 .updatedAt(savedPerson.getUpdatedAt())
                 .build();

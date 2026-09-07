@@ -57,5 +57,3 @@ public class PersonController {
         return ResponseEntity.noContent().build();
     }
 }
-//Todo: Add the exception that handles the entity validations in the global exeption
-//todo: handler
